@@ -14,6 +14,7 @@
     --cream: #FAF6EE;
     --white: #FFFFFF;
     --success: #4CAF50;
+    --danger: #e07070;
     --text-muted: #8A9BB5;
   }
 
@@ -27,7 +28,6 @@
     overflow-x: hidden;
   }
 
-  /* Animated background */
   .bg-pattern {
     position: fixed;
     inset: 0;
@@ -71,7 +71,6 @@
     padding: 40px 24px 60px;
   }
 
-  /* Top decorative line */
   .top-accent {
     width: 60px;
     height: 2px;
@@ -85,7 +84,6 @@
     to { width: 60px; opacity: 1; }
   }
 
-  /* Header */
   .header {
     text-align: center;
     margin-bottom: 48px;
@@ -154,7 +152,7 @@
     flex-shrink: 0;
   }
 
-  /* Event details cards */
+  /* Event details */
   .details {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -178,10 +176,7 @@
     transform: translateY(-2px);
   }
 
-  .detail-card .icon {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
+  .detail-card .icon { font-size: 24px; margin-bottom: 10px; }
 
   .detail-card .label {
     font-size: 11px;
@@ -198,9 +193,7 @@
     line-height: 1.4;
   }
 
-  .detail-card.full-width {
-    grid-column: 1 / -1;
-  }
+  .detail-card.full-width { grid-column: 1 / -1; }
 
   /* Countdown */
   .countdown-section {
@@ -223,9 +216,7 @@
     gap: 20px;
   }
 
-  .countdown-unit {
-    text-align: center;
-  }
+  .countdown-unit { text-align: center; }
 
   .countdown-unit .num {
     font-family: 'Playfair Display', serif;
@@ -243,10 +234,8 @@
     margin-top: 4px;
   }
 
-  /* RSVP Form */
-  .rsvp-section {
-    animation: fadeUp 0.8s ease-out 0.8s both;
-  }
+  /* RSVP */
+  .rsvp-section { animation: fadeUp 0.8s ease-out 0.8s both; }
 
   .rsvp-card {
     background: rgba(255,255,255,0.025);
@@ -270,9 +259,7 @@
     margin-bottom: 28px;
   }
 
-  .form-group {
-    margin-bottom: 18px;
-  }
+  .form-group { margin-bottom: 18px; }
 
   .form-group label {
     display: block;
@@ -330,10 +317,26 @@
     gap: 16px;
   }
 
+  .form-group .error-text {
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .form-group.has-error input {
+    border-color: var(--danger);
+  }
+
+  .form-group.has-error .error-text {
+    display: block;
+  }
+
+  /* Attendance Toggle */
   .attendance-toggle {
     display: flex;
     gap: 12px;
-    margin-bottom: 18px;
+    margin-bottom: 22px;
   }
 
   .toggle-btn {
@@ -348,23 +351,26 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
+    user-select: none;
   }
 
   .toggle-btn:hover {
     border-color: rgba(200,164,92,0.35);
+    background: rgba(200,164,92,0.04);
   }
 
-  .toggle-btn.active {
+  .toggle-btn.active-yes {
     border-color: var(--gold);
     background: rgba(200,164,92,0.1);
     color: var(--gold);
     font-weight: 500;
   }
 
-  .toggle-btn.active.decline {
-    border-color: #e07070;
+  .toggle-btn.active-no {
+    border-color: var(--danger);
     background: rgba(224,112,112,0.08);
-    color: #e07070;
+    color: var(--danger);
+    font-weight: 500;
   }
 
   .submit-btn {
@@ -381,6 +387,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 8px;
+    position: relative;
   }
 
   .submit-btn:hover {
@@ -388,18 +395,34 @@
     box-shadow: 0 8px 24px rgba(200,164,92,0.25);
   }
 
-  .submit-btn:active {
-    transform: translateY(0);
-  }
+  .submit-btn:active { transform: translateY(0); }
 
   .submit-btn:disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+    transform: none !important;
+    box-shadow: none !important;
   }
 
-  /* Success State */
+  .submit-btn .spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(13,27,42,0.3);
+    border-top-color: var(--navy);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin: 0 auto;
+  }
+
+  .submit-btn.loading .btn-text { display: none; }
+  .submit-btn.loading .spinner { display: block; }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Success */
   .success-state {
     display: none;
     text-align: center;
@@ -415,13 +438,21 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: rgba(76,175,80,0.12);
-    border: 2px solid var(--success);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
     font-size: 28px;
+  }
+
+  .success-check.yes {
+    background: rgba(76,175,80,0.12);
+    border: 2px solid var(--success);
+  }
+
+  .success-check.no {
+    background: rgba(224,112,112,0.1);
+    border: 2px solid var(--danger);
   }
 
   .success-state h3 {
@@ -437,67 +468,119 @@
     line-height: 1.6;
   }
 
-  /* Guest list (hidden by default) */
+  .success-state .email-note {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(200,164,92,0.06);
+    border: 1px solid rgba(200,164,92,0.12);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+  }
+
+  .reset-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--gold);
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s;
+  }
+
+  .reset-link:hover { opacity: 0.7; }
+
+  /* Guest List */
   .guest-list-section {
-    margin-top: 40px;
+    margin-top: 48px;
     animation: fadeUp 0.8s ease-out 0.9s both;
   }
 
-  .guest-list-toggle {
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    border: 1px solid rgba(200,164,92,0.1);
-    border-radius: 10px;
-    color: var(--text-muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 1px;
+  .guest-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
   }
 
-  .guest-list-toggle:hover {
-    border-color: rgba(200,164,92,0.25);
+  .guest-list-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
     color: var(--cream);
   }
 
-  .guest-entries {
-    display: none;
-    margin-top: 16px;
+  .guest-stats {
+    display: flex;
+    gap: 16px;
   }
 
-  .guest-entries.show {
-    display: block;
-    animation: fadeUp 0.4s ease-out;
+  .guest-stat {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .guest-stat .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot.green { background: var(--success); }
+  .dot.red { background: var(--danger); }
+
+  .guest-entries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .guest-entry {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 16px;
+    padding: 16px 18px;
     background: rgba(255,255,255,0.02);
-    border-radius: 8px;
-    margin-bottom: 8px;
+    border-radius: 10px;
     border: 1px solid rgba(200,164,92,0.06);
+    transition: all 0.2s ease;
   }
 
-  .guest-entry .guest-name {
+  .guest-entry:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(200,164,92,0.12);
+  }
+
+  .guest-info { flex: 1; }
+
+  .guest-name {
     font-weight: 500;
     color: var(--cream);
+    font-size: 0.95rem;
+    margin-bottom: 4px;
   }
 
-  .guest-entry .guest-meta {
+  .guest-meta {
     font-size: 0.8rem;
     color: var(--text-muted);
+    line-height: 1.4;
   }
 
-  .guest-entry .attending-badge {
+  .guest-message-preview {
+    font-style: italic;
+    color: rgba(200,164,92,0.6);
+  }
+
+  .attending-badge {
     font-size: 0.75rem;
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: 20px;
     font-weight: 500;
+    flex-shrink: 0;
+    margin-left: 12px;
   }
 
   .attending-badge.yes {
@@ -514,7 +597,43 @@
     text-align: center;
     color: var(--text-muted);
     font-size: 0.9rem;
-    padding: 20px;
+    padding: 32px 20px;
+    background: rgba(255,255,255,0.015);
+    border-radius: 10px;
+    border: 1px dashed rgba(200,164,92,0.1);
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    z-index: 100;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  .toast.success {
+    background: #1a3a1a;
+    border: 1px solid var(--success);
+    color: #81C784;
+  }
+
+  .toast.error {
+    background: #3a1a1a;
+    border: 1px solid var(--danger);
+    color: var(--danger);
   }
 
   /* Footer */
@@ -538,6 +657,8 @@
     .form-row { grid-template-columns: 1fr; }
     .rsvp-card { padding: 28px 20px; }
     .countdown { gap: 14px; }
+    .guest-list-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .attendance-toggle { flex-direction: column; gap: 10px; }
   }
 </style>
 </head>
@@ -567,7 +688,7 @@
     <div class="detail-card">
       <div class="icon">⏰</div>
       <div class="label">Time</div>
-      <div class="value">TBA</div>
+      <div class="value">8:00 AM</div>
     </div>
     <div class="detail-card full-width">
       <div class="icon">📍</div>
@@ -586,26 +707,29 @@
     </div>
   </div>
 
+  <!-- RSVP Form -->
   <div class="rsvp-section">
     <div class="rsvp-card">
       <div id="form-view">
         <h2 class="rsvp-title">RSVP</h2>
         <p class="rsvp-subtitle">Please let us know if you can make it!</p>
 
-        <div class="attendance-toggle">
-          <button class="toggle-btn active" onclick="setAttendance('yes', this)" id="btn-yes">🎉 Joyfully Accept</button>
-          <button class="toggle-btn" onclick="setAttendance('no', this)" id="btn-no">😔 Regretfully Decline</button>
+        <div class="attendance-toggle" id="attendance-toggle">
+          <button class="toggle-btn active-yes" id="btn-yes" type="button">🎉 Joyfully Accept</button>
+          <button class="toggle-btn" id="btn-no" type="button">😔 Regretfully Decline</button>
         </div>
 
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" id="guest-name" placeholder="Full name" required>
+        <div class="form-group" id="fg-name">
+          <label>Your Name *</label>
+          <input type="text" id="guest-name" placeholder="Full name" autocomplete="name">
+          <div class="error-text">Please enter your name</div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" id="guest-email" placeholder="email@example.com">
+          <div class="form-group" id="fg-email">
+            <label>Email *</label>
+            <input type="email" id="guest-email" placeholder="email@example.com" autocomplete="email">
+            <div class="error-text">Please enter a valid email</div>
           </div>
           <div class="form-group">
             <label>Number of Guests</label>
@@ -624,20 +748,32 @@
           <textarea id="guest-message" rows="3" placeholder="A note for the graduate..."></textarea>
         </div>
 
-        <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">Confirm RSVP</button>
+        <button class="submit-btn" id="submit-btn" type="button">
+          <span class="btn-text">Confirm RSVP</span>
+          <div class="spinner"></div>
+        </button>
       </div>
 
       <div class="success-state" id="success-view">
-        <div class="success-check">✓</div>
+        <div class="success-check" id="success-icon">✓</div>
         <h3 id="success-title">You're on the list!</h3>
         <p id="success-msg">Thank you for your RSVP. We can't wait to celebrate with you on May 9th!</p>
+        <div class="email-note" id="email-note">📧 A confirmation email has been sent to your inbox.</div>
+        <span class="reset-link" id="reset-link">Submit another RSVP</span>
       </div>
     </div>
   </div>
 
+  <!-- Guest List (always visible) -->
   <div class="guest-list-section">
-    <button class="guest-list-toggle" onclick="toggleGuestList()">View Guest List (<span id="guest-total">0</span> responses)</button>
-    <div class="guest-entries" id="guest-entries"></div>
+    <div class="guest-list-header">
+      <h3 class="guest-list-title">Guest List</h3>
+      <div class="guest-stats">
+        <div class="guest-stat"><span class="dot green"></span> <span id="count-yes">0</span> attending</div>
+        <div class="guest-stat"><span class="dot red"></span> <span id="count-no">0</span> declined</div>
+      </div>
+    </div>
+    <div class="guest-entries-list" id="guest-entries"></div>
   </div>
 
   <div class="footer">
@@ -645,42 +781,45 @@
   </div>
 </div>
 
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <script>
-  // --- Countdown ---
-  function updateCountdown() {
-    const target = new Date('2026-05-09T10:00:00').getTime();
-    const now = Date.now();
-    const diff = target - now;
-    if (diff <= 0) {
-      document.getElementById('cd-days').textContent = '0';
-      document.getElementById('cd-hrs').textContent = '0';
-      document.getElementById('cd-min').textContent = '0';
-      document.getElementById('cd-sec').textContent = '0';
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = d;
-    document.getElementById('cd-hrs').textContent = h;
-    document.getElementById('cd-min').textContent = m;
-    document.getElementById('cd-sec').textContent = s;
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  // ==========================================
+  // EMAILJS CONFIGURATION
+  // ==========================================
+  // To enable email confirmations & reminders:
+  // 1. Go to https://www.emailjs.com/ and create a free account
+  // 2. Add an email service (Gmail, Outlook, etc.)
+  // 3. Create an email template with these variables:
+  //    - {{to_name}}     → guest's name
+  //    - {{to_email}}    → guest's email
+  //    - {{attending}}   → "Yes" or "No"
+  //    - {{guest_count}} → number of guests
+  //    - {{message}}     → guest's message
+  //    - {{event_date}}  → "May 9, 2026"
+  //    - {{event_time}}  → "8:00 AM"
+  //    - {{event_location}} → "Florence, Alabama"
+  //    - {{grad_name}}   → "Meghanath Reddy"
+  // 4. Replace the values below with your actual IDs
+  // ==========================================
 
-  // --- Attendance Toggle ---
-  let attending = 'yes';
-  function setAttendance(val, btn) {
-    attending = val;
-    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active', 'decline'));
-    btn.classList.add('active');
-    if (val === 'no') btn.classList.add('decline');
+  const EMAILJS_PUBLIC_KEY = 'fY5h3tKxhUBFTg1fK';
+  const EMAILJS_SERVICE_ID = 'service_09drq1w';
+  const EMAILJS_TEMPLATE_ID = 'template_kz4esjj';
+  const EMAIL_ENABLED = true;
+
+  if (EMAIL_ENABLED) {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
   }
 
-  // --- Local Storage RSVP System ---
-  const STORAGE_KEY = 'graduation_rsvps_meghanath';
+  // ==========================================
+  // STORAGE
+  // ==========================================
+  const STORAGE_KEY = 'graduation_rsvps_meghanath_2026';
 
   function getRSVPs() {
     try {
@@ -694,73 +833,291 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(rsvps));
   }
 
-  function submitRSVP() {
-    const name = document.getElementById('guest-name').value.trim();
-    if (!name) {
-      document.getElementById('guest-name').style.borderColor = '#e07070';
-      document.getElementById('guest-name').focus();
+  // ==========================================
+  // COUNTDOWN
+  // ==========================================
+  function updateCountdown() {
+    const target = new Date('2026-05-09T08:00:00').getTime();
+    const now = Date.now();
+    const diff = target - now;
+    if (diff <= 0) {
+      ['cd-days','cd-hrs','cd-min','cd-sec'].forEach(id => document.getElementById(id).textContent = '0');
       return;
     }
+    document.getElementById('cd-days').textContent = Math.floor(diff / 86400000);
+    document.getElementById('cd-hrs').textContent = Math.floor((diff % 86400000) / 3600000);
+    document.getElementById('cd-min').textContent = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('cd-sec').textContent = Math.floor((diff % 60000) / 1000);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ==========================================
+  // ATTENDANCE TOGGLE
+  // ==========================================
+  let attending = 'yes';
+  const btnYes = document.getElementById('btn-yes');
+  const btnNo = document.getElementById('btn-no');
+
+  btnYes.addEventListener('click', function() {
+    attending = 'yes';
+    btnYes.className = 'toggle-btn active-yes';
+    btnNo.className = 'toggle-btn';
+  });
+
+  btnNo.addEventListener('click', function() {
+    attending = 'no';
+    btnNo.className = 'toggle-btn active-no';
+    btnYes.className = 'toggle-btn';
+  });
+
+  // ==========================================
+  // FORM VALIDATION
+  // ==========================================
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.form-group').forEach(fg => fg.classList.remove('has-error'));
+  }
+
+  // ==========================================
+  // SUBMIT RSVP
+  // ==========================================
+  const submitBtn = document.getElementById('submit-btn');
+
+  submitBtn.addEventListener('click', async function() {
+    clearErrors();
+
+    const name = document.getElementById('guest-name').value.trim();
+    const email = document.getElementById('guest-email').value.trim();
+    const guests = document.getElementById('guest-count').value;
+    const message = document.getElementById('guest-message').value.trim();
+    let hasError = false;
+
+    if (!name) {
+      document.getElementById('fg-name').classList.add('has-error');
+      hasError = true;
+    }
+    if (!email || !validateEmail(email)) {
+      document.getElementById('fg-email').classList.add('has-error');
+      hasError = true;
+    }
+    if (hasError) return;
+
+    // Disable button, show loading
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
 
     const entry = {
       name,
-      email: document.getElementById('guest-email').value.trim(),
-      guests: document.getElementById('guest-count').value,
-      message: document.getElementById('guest-message').value.trim(),
+      email,
+      guests,
+      message,
       attending,
       timestamp: new Date().toISOString()
     };
 
+    // Save to localStorage
     saveRSVP(entry);
 
+    // Send confirmation email
+    if (EMAIL_ENABLED) {
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_name: name,
+          to_email: email,
+          attending: attending === 'yes' ? 'Yes — Attending' : 'No — Unable to attend',
+          guest_count: guests,
+          message: message || '(no message)',
+          event_date: 'May 9, 2026',
+          event_time: '8:00 AM',
+          event_location: 'Florence, Alabama',
+          grad_name: 'Meghanath Reddy'
+        });
+      } catch (err) {
+        console.error('Email failed:', err);
+      }
+    }
+
+    // Show success
     document.getElementById('form-view').style.display = 'none';
     const sv = document.getElementById('success-view');
-    sv.classList.add('show');
+    const icon = document.getElementById('success-icon');
 
     if (attending === 'no') {
-      document.getElementById('success-title').textContent = 'We'll miss you!';
+      icon.className = 'success-check no';
+      icon.textContent = '💌';
+      document.getElementById('success-title').textContent = "We'll miss you!";
       document.getElementById('success-msg').textContent = 'Thank you for letting us know. We hope to celebrate with you another time!';
-    }
-
-    updateGuestCount();
-  }
-
-  function updateGuestCount() {
-    const rsvps = getRSVPs();
-    document.getElementById('guest-total').textContent = rsvps.length;
-  }
-
-  function toggleGuestList() {
-    const el = document.getElementById('guest-entries');
-    const isShown = el.classList.contains('show');
-    if (isShown) {
-      el.classList.remove('show');
-      return;
-    }
-    const rsvps = getRSVPs();
-    if (rsvps.length === 0) {
-      el.innerHTML = '<div class="no-guests">No RSVPs yet — be the first!</div>';
     } else {
-      el.innerHTML = rsvps.map(r => `
-        <div class="guest-entry">
-          <div>
-            <div class="guest-name">${escHtml(r.name)}</div>
-            <div class="guest-meta">${r.guests === '1' ? '1 guest' : r.guests + ' guests'}${r.message ? ' · "' + escHtml(r.message.substring(0, 50)) + (r.message.length > 50 ? '…' : '') + '"' : ''}</div>
-          </div>
-          <span class="attending-badge ${r.attending === 'yes' ? 'yes' : 'no'}">${r.attending === 'yes' ? 'Attending' : 'Declined'}</span>
-        </div>
-      `).join('');
+      icon.className = 'success-check yes';
+      icon.textContent = '✓';
+      document.getElementById('success-title').textContent = "You're on the list!";
+      document.getElementById('success-msg').textContent = "Thank you for your RSVP. We can't wait to celebrate with you on May 9th!";
     }
-    el.classList.add('show');
-  }
 
+    if (!EMAIL_ENABLED) {
+      document.getElementById('email-note').style.display = 'none';
+    }
+
+    sv.classList.add('show');
+    showToast('RSVP submitted successfully!', 'success');
+
+    // Refresh guest list
+    renderGuestList();
+
+    // Reset button state
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('loading');
+  });
+
+  // ==========================================
+  // RESET FORM
+  // ==========================================
+  document.getElementById('reset-link').addEventListener('click', function() {
+    document.getElementById('success-view').classList.remove('show');
+    document.getElementById('form-view').style.display = 'block';
+    document.getElementById('guest-name').value = '';
+    document.getElementById('guest-email').value = '';
+    document.getElementById('guest-count').value = '1';
+    document.getElementById('guest-message').value = '';
+    attending = 'yes';
+    btnYes.className = 'toggle-btn active-yes';
+    btnNo.className = 'toggle-btn';
+    clearErrors();
+  });
+
+  // ==========================================
+  // GUEST LIST RENDERING
+  // ==========================================
   function escHtml(s) {
     const d = document.createElement('div');
     d.textContent = s;
     return d.innerHTML;
   }
 
-  updateGuestCount();
+  function renderGuestList() {
+    const rsvps = getRSVPs();
+    const container = document.getElementById('guest-entries');
+    const yesCount = rsvps.filter(r => r.attending === 'yes').length;
+    const noCount = rsvps.filter(r => r.attending === 'no').length;
+
+    document.getElementById('count-yes').textContent = yesCount;
+    document.getElementById('count-no').textContent = noCount;
+
+    if (rsvps.length === 0) {
+      container.innerHTML = '<div class="no-guests">No RSVPs yet — be the first! 🎉</div>';
+      return;
+    }
+
+    // Sort: most recent first
+    const sorted = [...rsvps].reverse();
+
+    container.innerHTML = sorted.map(r => {
+      const date = new Date(r.timestamp);
+      const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const guestText = r.guests === '1' ? '1 guest' : r.guests + ' guests';
+
+      return `
+        <div class="guest-entry">
+          <div class="guest-info">
+            <div class="guest-name">${escHtml(r.name)}</div>
+            <div class="guest-meta">
+              ${guestText} · RSVP'd ${dateStr}
+              ${r.message ? '<br><span class="guest-message-preview">"' + escHtml(r.message.length > 60 ? r.message.substring(0, 60) + '…' : r.message) + '"</span>' : ''}
+            </div>
+          </div>
+          <span class="attending-badge ${r.attending === 'yes' ? 'yes' : 'no'}">
+            ${r.attending === 'yes' ? '✓ Attending' : '✗ Declined'}
+          </span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ==========================================
+  // TOAST NOTIFICATIONS
+  // ==========================================
+  function showToast(msg, type) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = 'toast ' + type;
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  // ==========================================
+  // REMINDER SYSTEM (3 days before event)
+  // ==========================================
+  // Create a SECOND template in EmailJS for reminders with these variables:
+  //   {{to_name}}, {{to_email}}, {{event_date}}, {{event_time}}, {{event_location}}, {{grad_name}}, {{guest_count}}
+  // Subject: "🔔 Reminder: Meghanath Reddy's Graduation is in 3 Days!"
+  // Body: A friendly reminder about the event.
+  // Then replace the ID below:
+  const EMAILJS_REMINDER_TEMPLATE_ID = 'template_kz4esjj'; // Use same template or create a separate one
+
+  const REMINDER_KEY = 'graduation_reminders_sent_2026';
+
+  async function checkAndSendReminders() {
+    if (!EMAIL_ENABLED) return;
+
+    const eventDate = new Date('2026-05-09T08:00:00');
+    const now = new Date();
+    const diffDays = (eventDate - now) / (1000 * 60 * 60 * 24);
+
+    // Only send reminders when we're within 3 days (but not past the event)
+    if (diffDays > 3 || diffDays < 0) return;
+
+    const rsvps = getRSVPs();
+    const sentReminders = JSON.parse(localStorage.getItem(REMINDER_KEY) || '[]');
+
+    // Only remind guests who accepted and haven't been reminded yet
+    const toRemind = rsvps.filter(r =>
+      r.attending === 'yes' &&
+      r.email &&
+      !sentReminders.includes(r.email)
+    );
+
+    if (toRemind.length === 0) return;
+
+    console.log(`Sending reminders to ${toRemind.length} guest(s)...`);
+
+    for (const guest of toRemind) {
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_REMINDER_TEMPLATE_ID, {
+          to_name: guest.name,
+          to_email: guest.email,
+          attending: 'Yes — Attending',
+          guest_count: guest.guests,
+          message: '🔔 This is a friendly reminder that the graduation ceremony is just 3 days away!',
+          event_date: 'May 9, 2026',
+          event_time: '8:00 AM',
+          event_location: 'Florence, Alabama',
+          grad_name: 'Meghanath Reddy'
+        });
+
+        sentReminders.push(guest.email);
+        localStorage.setItem(REMINDER_KEY, JSON.stringify(sentReminders));
+        console.log(`Reminder sent to ${guest.name}`);
+      } catch (err) {
+        console.error(`Failed to send reminder to ${guest.name}:`, err);
+      }
+    }
+
+    if (toRemind.length > 0) {
+      showToast(`🔔 Sent ${toRemind.length} reminder(s) to guests!`, 'success');
+    }
+  }
+
+  // ==========================================
+  // INIT
+  // ==========================================
+  renderGuestList();
+  
+  // Check if reminders need to be sent (runs on every page load)
+  checkAndSendReminders();
 </script>
 </body>
 </html>
