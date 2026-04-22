@@ -406,8 +406,8 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 
 <main class="main">
   <div class="details-grid">
-    <div class="d-card"><span class="d-icon">📅</span><div class="d-label">Date</div><div class="d-val">May 9, 2026</div></div>
-    <div class="d-card"><span class="d-icon">⏰</span><div class="d-label">Time</div><div class="d-val">8:00 AM</div></div>
+    <div class="d-card"><span class="d-icon">📅</span><div class="d-label">Date</div><div class="d-val">May 8, 2026</div></div>
+    <div class="d-card"><span class="d-icon">⏰</span><div class="d-label">Time</div><div class="d-val">8:00 PM</div></div>
     <div class="d-card"><span class="d-icon">📍</span><div class="d-label">Location</div><div class="d-val">500 N Pine st, Florence, AL</div></div>
   </div>
 
@@ -624,7 +624,7 @@ function boom(){
 
 // ===== COUNTDOWN =====
 function tick(){
-  const df=new Date('2026-05-09T08:00:00').getTime()-Date.now();
+  const df=new Date('2026-05-08T20:00:00').getTime()-Date.now();
   if(df<=0){['d','h','m','s'].forEach(i=>document.getElementById(i).textContent='0');return}
   document.getElementById('d').textContent=Math.floor(df/864e5);
   document.getElementById('h').textContent=Math.floor((df%864e5)/36e5);
@@ -667,7 +667,7 @@ document.getElementById('sb').onclick=async()=>{
       attending:att==='yes'?'Yes — Attending 🎉':'No — Unable to attend',
       guest_count:gc==='1'?'Just me':gc+' guests',
       message:ms||'(no message)',
-      event_date:'May 9, 2026',event_time:'8:00 AM',
+      event_date:'May 8, 2026',event_time:'8:00 PM',
       event_location:'Florence, Alabama',grad_name:'Meghanath Reddy'
     });
   }catch(e){console.error('Email err:',e)}
@@ -677,7 +677,7 @@ document.getElementById('sb').onclick=async()=>{
   if(att==='yes'){
     ic.className='suc-icon yes';ic.textContent='🎉';
     document.getElementById('st').textContent="You're on the list!";
-    document.getElementById('sm').textContent="Thank you! We can't wait to celebrate with you on May 9th!";
+    document.getElementById('sm').textContent="Thank you! We can't wait to celebrate with you on May 8th!";
     boom();
   }else{
     ic.className='suc-icon no';ic.textContent='💌';
@@ -737,7 +737,7 @@ function toast(msg,type){
 
 // ===== 3-DAY REMINDER =====
 async function reminders(){
-  const diff=(new Date('2026-05-09T08:00:00')-new Date())/(864e5);
+  const diff=(new Date('2026-05-08T20:00:00')-new Date())/(864e5);
   if(diff>3||diff<0)return;
   const rsvps=await fetchRSVPs();
   const sent=JSON.parse(localStorage.getItem('grad_rem_sent')||'[]');
@@ -749,7 +749,7 @@ async function reminders(){
         attending:'🔔 REMINDER — You\'re attending!',
         guest_count:g.guests==='1'?'Just you':g.guests+' guests',
         message:'Friendly reminder — the graduation ceremony is just 3 days away! We can\'t wait to see you there. 🎓',
-        event_date:'May 9, 2026',event_time:'8:00 AM',
+        event_date:'May 8, 2026',event_time:'8:00 PM',
         event_location:'Florence, Alabama',grad_name:'Meghanath Reddy'
       });
       sent.push(g.email);localStorage.setItem('grad_rem_sent',JSON.stringify(sent));
